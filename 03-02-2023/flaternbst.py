@@ -1,21 +1,16 @@
-"""
-Node is defined as
-self.left (the left child of the node)
-self.right (the right child of the node)
-self.info (the value of the node)
-"""
-def topView(root):
-    #Write your code here
-    d={}
-    q=[]
-    q.append((root,0))
-    while(q):
-        i=q.pop(0)
-        if i[1] not in d:
-            d[i[1]]=i[0].info
-        if i[0].left:
-            q.append((i[0].left,i[1]-1))
-        if i[0].right:
-            q.append((i[0].right,i[1]+1))  
-    for i,j in sorted(d.items()):
-        print(str(j),end=" ")
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    p=None
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        if root==None:
+            return None
+        self.flatten(root.right)
+        self.flatten(root.left)
+        root.right = self.p
+        root.left = None
+        self.p = root
